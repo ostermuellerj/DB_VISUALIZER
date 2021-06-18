@@ -86,22 +86,24 @@ class Particle {
       pushMatrix();
         //rotate by lifespan and noise
         float damp = 10;
-        rotateX(lifespan*cos(inc2)*sin(inc2)/10*noise(inc2)*location.x/damp);
-        rotateY(lifespan*sin(inc2)*cos(inc2)/10*noise(inc2+PI/3)*location.y/damp);
-        rotateZ(lifespan*sin(inc2)*sin(inc2)/10*noise(inc2+TWO_PI/3)*location.z/damp);
+        // rotateX(lifespan*cos(inc2)*sin(inc2)/10*noise(inc2)*location.x/damp);
+        // rotateY(lifespan*sin(inc2)*cos(inc2)/10*noise(inc2+PI/3)*location.y/damp);
+        // rotateZ(lifespan*sin(inc2)*sin(inc2)/10*noise(inc2+TWO_PI/3)*location.z/damp);
 
-        amp=gain*fft.getBand(int(lifespan/255)*512);
-        // amp=0.0002*gain-fft.getBand(int((lifespan/255)*512))*gain/1000;
+        // amp=gain*fft.getBand(int(lifespan/255)*512);
+        // amp=0.0002*gain-gain*getAverageFFT(int(lifespan/255)*512)/50000;
+        amp=0.0002*gain-fft.getBand(int((lifespan/255)*512))*gain/1000;
 
         for(float i=multi; i>0; i--) {      
 
           if(!doColorChange) 
             // stroke((((lifespan/colorSpan)%255+colorSpec+inc*500)%255*noise(location.x,location.y,location.z)+10*noise(location.z,location.y,location.x))%255, lifespan*2, lifespan*2, lifespan*2);
-            stroke(255,255,180,100);
-            // stroke((((lifespan/colorSpan)%255+colorSpec+inc*500)%255*noise(location.x,location.y,location.z)+90*noise(location.z,location.y,location.x))%255, 
-            //   lifespan*noise(location.x,location.y,location.z), 
-            //   lifespan/2, 
-            //   lifespan/2);
+            // stroke(255,255,180,100);
+            // stroke((((seed+lifespan/colorSpan)%255+colorSpec+inc*500)%255*noise(location.x,location.y,location.z)+90*noise(location.z,location.y,location.x))%255,
+            stroke((100*noise(location.x,location.y,location.z)+seed+inc+colorSpec)%(255*colorSpan*abs(sin(inc))), 
+              lifespan*noise(location.x,location.y,location.z), 
+              lifespan/2, 
+              lifespan/2);
           else
             stroke(colorChange);
 

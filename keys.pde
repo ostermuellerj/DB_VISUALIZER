@@ -13,13 +13,13 @@ void keyPressed() {
   {
     // gain/=2;
     init_gain1/=2;  
-    println(gain);
+    // println(gain);
   } 
   else if (keyCode == UP)
   {
     // gain*=2;
     init_gain1*=2;
-    println(gain);
+    // println(gain);
   }
   else if (key == 'k')
   {
@@ -33,8 +33,28 @@ void keyPressed() {
   }
   else if (key == 'l')
   {
-    bkg=80;
+    doBackgroundToggle=!doBackgroundToggle;
   }
+  else if (key == ';')
+  {
+    fxsys.startRandomEffect(int(random(0,fxsys.totalNumEffects)));
+  } 
+  else if (keyCode == LEFT) 
+  {
+    if(effectIndex==0) effectIndex=fxsys.totalNumEffects-1;
+    else effectIndex--;
+    println(effectsList[effectIndex]);
+  }
+  else if (keyCode == RIGHT) 
+  {
+    effectIndex=(effectIndex+1)%fxsys.totalNumEffects;
+    println(effectsList[effectIndex]);
+  } 
+  else if (key == ' ')
+  {
+    fxsys.startRandomEffect(effectIndex);
+  }
+  
   // println("GAIN:",gain);
 }
 
@@ -42,9 +62,5 @@ void keyReleased() {
   if (key == 'j')
   {
     doBackground=true;
-  }
-  else if (key == 'l')
-  {
-    doBackgroundToggle=!doBackgroundToggle;
   }
 }

@@ -50,8 +50,14 @@ boolean doShake=false,
         jPressed=false,
         doThicc=false;
 
+int effectIndex;
+String[] effectsList = new String[] {"trails","thicklines","incShapeType","changeMovement1","changeMovement2","changeColor","gainUp","bloom"};
 
 FFT fft;
+int fftBufferSize=600;
+FFT[] fftBuffer;
+int fftIndex=0;
+
 int[][] colo=new int[300][3];
 //AudioIn in;
 float incAmt = radians(0.0004);
@@ -74,7 +80,7 @@ void setup()
   size(1280, 800, P3D);
   // fullScreen(P3D);
   colorMode(HSB);
-  // frameRate(20);
+  frameRate(30);
   noCursor();
 
   cam = new PeasyCam(this, 100);
@@ -84,6 +90,11 @@ void setup()
   minim = new Minim(this);
   input = minim.getLineIn();
   fft = new FFT(input.bufferSize(), input.sampleRate());
+  fftBuffer = new FFT[fftBufferSize];
+  for(int i=0;i<fftBufferSize;i++)
+  {
+    fftBuffer[i] = fft;
+  }
 
   perspective(PI/2, float(width)/float(height), 1, 80000);
 
@@ -103,6 +114,10 @@ void setup()
 
 void draw()
 {
+  fft.forward(input.mix);
+  fftBuffer[fftIndex%fftBufferSize]=fft;
+  fftIndex++;
+
   pushMatrix();
   // maxNumParticles+=abs(sin(inc*10)*50);
   // numParticlesToAdd+=abs(sin(inc*10)*2);
@@ -112,7 +127,7 @@ void draw()
   inc+=incAmt;
   if(doShake) 
   {
-    inc2+=2*incAmt;
+    inc2+=incAmt/2;
   }
 
   // if(random(1)>0.99)
@@ -149,8 +164,6 @@ void draw()
       background(0,0,0);
     cam.endHUD();
   }
-  
-  fft.forward(input.mix);
 
   sum=0;
   // cam.rotateX(inc/PI);
@@ -197,7 +210,18 @@ void draw()
   popMatrix();
 }
 
-void event(int state){
+float getAverageFFT(int band)
+{
+  float s=0;
+  for(int i=0; i<fftBufferSize; i++) 
+  {
+    s+=fftBuffer[i].getBand(band);
+  }
+  return s/float(fftBufferSize);
+}
+
+void event(int state)
+{
   switch(state) {
     case 0:
     // println("DRAWTYPE++(CURRENTLY DISABLED)");

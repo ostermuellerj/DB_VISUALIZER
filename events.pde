@@ -62,7 +62,7 @@ class FXSystem {
           if (temp.dead) {
           	temp.kill();
             iter.remove();
-            println("removed a dead effect.");
+            //println("removed a dead effect.");
             break;
           }
           else
@@ -94,7 +94,7 @@ class Effect {
 	void run() {	
 		if(!started) {
 			start_time = millis();
-			println("effect started."); //:)
+			//println("effect started."); //:)
 			started=true;
 		}
 
@@ -129,9 +129,15 @@ class Effect {
 	}
 	
 	//each effect class has their own display function
-	void display() { println("generic display"); }
+	void display() 
+	{
+	//println("generic display"); 
+	}
 
-	void kill() { println("generic kill"); }
+	void kill() 
+	{
+	//println("generic kill"); 
+	}
 }
 
 class DrawTrails extends Effect {
@@ -149,7 +155,7 @@ class DrawTrails extends Effect {
 	@Override
 	void kill() {
 		// println("override display");
-		println("effect killed.");
+		//println("effect killed.");
 		if(doBackgroundToggle==true)
 			doBackground=true;
 	}
@@ -168,7 +174,7 @@ class ThickLines extends Effect {
 	@Override
 	void kill() {
 		// println("override display");
-		println("effect killed.");
+		//println("effect killed.");
 		doThicc=false;
 	}
 }
@@ -186,7 +192,7 @@ class IncShapeType extends Effect {
 	void display() {
 		if(!executed)
 		{
-			println("shape type++");
+			//println("shape type++");
 			drawShapeType=(drawShapeType+1)%numShapeTypes;
 			executed=true;
 		}
@@ -195,7 +201,7 @@ class IncShapeType extends Effect {
 	@Override
 	void kill() {
 		// println("override display");
-		println("effect killed.");
+		//println("effect killed.");
 		drawShapeType=leaveType;
 	}
 }
@@ -214,7 +220,7 @@ class ChangeMoveType extends Effect {
 	void display() {
 		if(!executed)
 		{
-			println("change a");
+			//println("change a");
 			temp_a=a;
 			a+=random(-3,3);
 			executed=true;
@@ -224,7 +230,7 @@ class ChangeMoveType extends Effect {
 	@Override
 	void kill() {
 		// println("override display");
-		println("normal a");
+		//println("normal a");
 		a=temp_a;
 	}
 }
@@ -243,7 +249,7 @@ class ChangeMoveType2 extends Effect {
 	void display() {
 		if(!executed)
 		{
-			println("change vel");
+			//println("change vel");
 			temp_vel=vel;
 			vel+=random(-3,3);
 			executed=true;
@@ -253,7 +259,7 @@ class ChangeMoveType2 extends Effect {
 	@Override
 	void kill() {
 		// println("override display");
-		println("normal vel");
+		//println("normal vel");
 		vel=temp_vel;
 	}
 }
@@ -271,7 +277,7 @@ class ChangeColor extends Effect {
 	void display() {
 		if(!executed)
 		{
-			println("change color");
+			//println("change color");
 			doColorChange=true;
 			float randomR=random(255);
 			float randomG=random(255);
@@ -284,7 +290,7 @@ class ChangeColor extends Effect {
 	@Override
 	void kill() {
 		// println("override display");
-		println("normal colors");
+		//println("normal colors");
 		doColorChange=false;
 	}
 }
@@ -301,7 +307,7 @@ class GainUp extends Effect {
 	void display() {
 		if(!executed)
 		{
-			println("gain up");
+			//println("gain up");
 			init_gain*=(1+max_strength);
 			executed=true;
 		}
@@ -310,7 +316,7 @@ class GainUp extends Effect {
 	@Override
 	void kill() {
 		// println("override display");
-		println("normal colors");
+		//println("normal colors");
 		init_gain/=(1+max_strength);
 		doColorChange=false;
 	}
@@ -334,7 +340,7 @@ class Bloom extends Effect {
 	@Override
 	void kill() {
 		// println("override display");
-		println("effect killed.");
+		// println("effect killed.");
 		
 	}
 }
