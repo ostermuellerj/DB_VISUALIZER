@@ -53,10 +53,32 @@ void keyPressed() {
   else if (key == ' ')
   {
     fxsys.startRandomEffect(effectIndex);
+  } 
+  else if (key == 'o')
+  {
+    doMouseRotate=!doMouseRotate;
+  } 
+  else if (key == 'x')
+  {
+    colorSpan=max(0.1,colorSpan/2);
   }
-  
+  else if (key == 'c')
+  {
+    colorSpan=min(1,colorSpan*2);
+  } 
+ else if (key == 'c')
+  {
+    colorSpan=min(1,colorSpan*2);
+  } 
   // println("GAIN:",gain);
 }
+
+// void mousePressed() {
+//   if(mouseButton == RIGHT) {
+//     doMouseRotate=!doMouseRotate;
+//     println("doMouseRotate: "+doMouseRotate);
+//   }
+// }
 
 void keyReleased() {
   if (key == 'j')

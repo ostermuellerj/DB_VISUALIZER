@@ -92,18 +92,20 @@ class Particle {
 
         // amp=gain*fft.getBand(int(lifespan/255)*512);
         // amp=0.0002*gain-gain*getAverageFFT(int(lifespan/255)*512)/50000;
-        amp=0.0002*gain-fft.getBand(int((lifespan/255)*512))*gain/1000;
+        amp=0.0002*gain-fft.getBand(int((lifespan/255)*512))*gain/500;
 
         for(float i=multi; i>0; i--) {      
 
           if(!doColorChange) 
             // stroke((((lifespan/colorSpan)%255+colorSpec+inc*500)%255*noise(location.x,location.y,location.z)+10*noise(location.z,location.y,location.x))%255, lifespan*2, lifespan*2, lifespan*2);
             // stroke(255,255,180,100);
-            // stroke((((seed+lifespan/colorSpan)%255+colorSpec+inc*500)%255*noise(location.x,location.y,location.z)+90*noise(location.z,location.y,location.x))%255,
-            stroke((100*noise(location.x,location.y,location.z)+seed+inc+colorSpec)%(255*colorSpan*abs(sin(inc))), 
-              lifespan*noise(location.x,location.y,location.z), 
-              lifespan/2, 
-              lifespan/2);
+            stroke((((lifespan/colorSpan)%100+colorSpec)%100+90*noise(location.z,location.y,location.x)+inc*10)%255,
+            // stroke(lifespan/255,255,255);
+            // stroke((colorSpec+lifespan/255)%(255*colorSpan),255,255,255);
+            // stroke((seed+inc+colorSpec+location.x)%(255*colorSpan), 
+              min(50+lifespan*noise(location.x,location.y,location.z),150), 
+              lifespan/3, 
+              lifespan/3);
           else
             stroke(colorChange);
 

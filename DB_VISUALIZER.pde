@@ -48,7 +48,8 @@ boolean doShake=false,
         doBackground=true,
         doBackgroundToggle=true,
         jPressed=false,
-        doThicc=false;
+        doThicc=false,
+        doMouseRotate=false;
 
 int effectIndex;
 String[] effectsList = new String[] {"trails","thicklines","incShapeType","changeMovement1","changeMovement2","changeColor","gainUp","bloom"};
@@ -77,8 +78,8 @@ void setup()
   MidiBus.list();
   background(0);
   // size(1200, 100, P3D);
-  size(1280, 800, P3D);
-  // fullScreen(P3D);
+  // size(1280, 800, P3D);
+  fullScreen(P3D,2);
   colorMode(HSB);
   frameRate(30);
   noCursor();
@@ -162,6 +163,8 @@ void draw()
   {
     cam.beginHUD();
       background(0,0,0);
+      stroke(0,0,255,100);
+      rect(mouseX, mouseY, 3+3*sin(10*inc), 3+3*cos(10*inc));
     cam.endHUD();
   }
 
@@ -169,6 +172,15 @@ void draw()
   // cam.rotateX(inc/PI);
   // cam.rotateY(inc/PI);
   // cam.rotateZ(inc/PI);
+  float damp = 5000;
+  if(doMouseRotate)
+  {
+    cam.rotateY(-(mouseX-width/2)/damp);
+    cam.rotateX((mouseY-height/2)/damp);
+  }
+  // cam.rotateY(-(-width/2)/damp);
+  // cam.rotateX((-height/2)/damp);
+
   translate(-width/2, -height/2);  
 
     // println(cam.getPosition());
