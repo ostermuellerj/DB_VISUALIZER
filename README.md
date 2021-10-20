@@ -1,3 +1,3 @@
 # DB_VISUALIZER
 
-Visualizer for Drawing Blanks, 18/6/21 Holcomb house.
+Visualizer for Drawing Blanks, 6/18/21 Holcomb house.
