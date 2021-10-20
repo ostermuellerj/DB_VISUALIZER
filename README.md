@@ -1,4 +1,2 @@
-# DB_VISUALIZER
-
-Visualizer for Drawing Blanks, 6/18/21 Holcomb house.
+# Drawing-Blanks-Visualizer
 ![](dbv_ss.png)
